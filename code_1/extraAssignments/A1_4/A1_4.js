@@ -5,7 +5,9 @@ const student = readline.question("Are you a student (yes/no)? ");
 const currentYear = new Date().getFullYear();
 
 
-if (condition) {
+
+
+if (currentYear - yearBirth >= 65 || currentYear - yearBirth <= 16 ||  student === "yes") {
     console.log("Your price of admission is 2.40€")
 }
 else {
