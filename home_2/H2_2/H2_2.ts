@@ -12,8 +12,6 @@ function suffle(unshuffeled: Array<string>){
     //generate new random order
     for (let i = 0; i < deckIndex.length; i++) {
        let addingNumber: boolean = true;
-
-
        while (addingNumber){ // Feels a bit messy but works
            let tempNumber: number =  Math.round(Math.random() * cardNames.length);
            //console.log("tempNumber: " + tempNumber);
