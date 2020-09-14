@@ -1,3 +1,5 @@
+import { argv } from "process";
+
 class PlushToy {
    private index: number = 0;
    greeting: Array<string>;
@@ -46,8 +48,17 @@ doggy.greet();
 doggy.greet();
 
 
-function isPlushDog(object: any) {
-   return object instanceof PlushDog;
+// function isPlushDog(object: any) {
+//    return object instanceof PlushDog;
+// }
+
+function isPlushDog (a: unknown): a is PlushDog{
+   if (typeof a === "object" && a) {
+      if ((a as PlushDog).name !== undefined) {
+          return true;
+      }
+  }
+  return false
 }
 
 console.log(isPlushDog(doggy));
