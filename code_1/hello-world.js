@@ -1,6 +1,9 @@
 console.log("Hello world");
 
-// Is git working pushing again
+
+// basic comments
+/*this is a multi-
+line comment */
 
 let variable = 100;
 
