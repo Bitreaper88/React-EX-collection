@@ -1,82 +1,82 @@
-import { IpcNetConnectOpts } from "net";
 
 console.log("Running");
+
 interface IPosition {
-    x: number;
-    y: number;
+  x: number;
+  y: number;
+}
+
+enum Compass {
+  NORTH,
+  EAST,
+  SOUTH,
+  WEST,
+}
+
+function turnLeft(direction: Compass): Compass {
+  switch(direction) {
+    case Compass.NORTH: return Compass.WEST;
+    case Compass.EAST: return Compass.NORTH;
+    case Compass.SOUTH: return Compass.EAST;
+    case Compass.WEST: return Compass.SOUTH;
   }
+}
 
-enum compas{
-    NORTH = 0,
-    EAST = 90,
-    SOUTH = 180,
-    WEST = 270,
-} 
+function turnRight(direction: Compass): Compass {
+  switch(direction) {
+    case Compass.NORTH: return Compass.EAST;
+    case Compass.EAST: return Compass.SOUTH;
+    case Compass.SOUTH: return Compass.WEST;
+    case Compass.WEST: return Compass.NORTH;
+  }
+}
 
+function move(direction: Compass, pos: IPosition): IPosition {
+  switch(direction) {
+    case Compass.NORTH: return { x: pos.x + 0, y: pos.y + 1 };
+    case Compass.EAST:  return { x: pos.x + 1, y: pos.y + 0 };
+    case Compass.SOUTH: return { x: pos.x + 0, y: pos.y - 1 };
+    case Compass.WEST:  return { x: pos.x - 1, y: pos.y + 0 };
+  }
+}
 
 class MarsRover {
 
-    position: IPosition = {x: 0, y: 0};
-    north: IPosition = {x: 0, y: 1};
-    direction:compas;
-    posLog: Array<IPosition>;
+    position: IPosition = { x: 0, y: 0 };
+    direction: Compass = Compass.NORTH;
+    posLog: Array<IPosition> = [ this.position ];
 
-    move = new Map([
-       [ 'NORTH',  {procedure:  () : IPosition => this.north }],
-       [ 'EAST',   {procedure:  () => console.log("1, 0")     } ],
-       [ 'SOUTH',  {procedure:  () => console.log("-1, 0")    } ],
-       [ 'WEST',   {procedure:  () => console.log("0, -1")     } ],
-   
-   ]);
-
-    constructor (){
-        this.position =  {x: 5, y: 0};
-        this.direction = compas.NORTH;
-        this.posLog = [this.position];
-        console.log("this: x: " + this.position.x);
-        console.log("this: y: " + this.position.y);
-
-        //console.log(direction.get("NORTH")
+    moveForward() {      
+      this.position = move(this.direction, this.position);
+      this.posLog.push(this.position);
     }
 
-    moveForward(){
-
-
-    }
     turnRight(){
-        this.direction = this.direction + 90;
-
-                
-        this.direction = this.direction % 360;
-
-        if (this.direction < 0)
-        {
-            this.direction += 360;
-        }
-        console.log(compas[this.direction]);
-        let fn = this.move.get(compas[this.direction]);
-        if(fn) {
-            let newPos = fn.procedure();
-           console.log(newPos.x);
-        }  
-
+      this.direction = turnRight(this.direction);
     }
 
     turnLeft(){
+      this.direction = turnLeft(this.direction);
+    }
 
-    }
     printPosition(){
-        console.log("this: x: " + this.position.x);
-        console.log("this: y: " + this.position.y);
+        console.log(`position: ${this.position.x}, ${this.position.y}, heading: ${Compass[this.direction]}`)
     }
+    
     printLog(){
-        console.log(this.posLog);
+        for(let i = 0, l = this.posLog.length; i < l; ++i) {
+          let p = this.posLog[i];
+          console.log(`position ${i} x: ${p.x} y: ${p.y}`);
+        }
     }
- 
  }
 
  let rover = new MarsRover();
 
  rover.turnRight();
- rover.printPosition();
- rover.printLog();
+ rover.moveForward();
+ rover.turnLeft();
+ rover.moveForward();
+ rover.moveForward();
+ rover.moveForward();
+ rover.printLog(); 
