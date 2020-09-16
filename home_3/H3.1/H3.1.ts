@@ -13,6 +13,8 @@ enum Compass {
   WEST,
 }
 
+let roverInstances: Array<MarsRover> = [];
+
 function turnLeft(direction: Compass): Compass {
   switch(direction) {
     case Compass.NORTH: return Compass.WEST;
@@ -42,17 +44,33 @@ function move(direction: Compass, pos: IPosition): IPosition {
 
 class MarsRover {
 
+    name: string;
     position: IPosition = { x: 0, y: 0 };
     direction: Compass = Compass.NORTH;
     posLog: Array<IPosition> = [ this.position ];
 
-    constructor (startPos: IPosition){
+    constructor (startPos: IPosition, name?: string){
+        name ? this.name = name : this.name = "Unknown rover";
         this.position = startPos;
+        roverInstances.push(this);
+
     }
 
-    moveForward() {      
-      this.position = move(this.direction, this.position);
-      this.posLog.push(this.position);
+    moveForward() { 
+       let checkPos = move(this.direction, this.position);
+       let spaceFree = false;
+        roverInstances.forEach(function (instances) {
+            console.log(instances.position + " positions " + checkPos); 
+            if (instances.position === checkPos){
+                console.log(`Occupied by ${instances.name}`);
+            }else{
+                spaceFree = true;
+            }
+        });  
+        if (spaceFree){
+            this.position = move(this.direction, this.position);
+            this.posLog.push(this.position);  
+        }
     }
 
     turnRight(){
@@ -64,7 +82,7 @@ class MarsRover {
     }
 
     printPosition(){
-        console.log(`position: ${this.position.x}, ${this.position.y}, heading: ${Compass[this.direction]}`)
+        console.log(`${this.name} position: ${this.position.x}, ${this.position.y}, heading: ${Compass[this.direction]}`)
     }
     
     printLog(){
@@ -75,22 +93,25 @@ class MarsRover {
     }
  }
 
- let spirit = new MarsRover({ x: 5, y: 0 });
+ let spirit = new MarsRover({ x: 0, y: 1 }, "Spirit");
 
- spirit.turnRight();
- spirit.moveForward();
- spirit.turnLeft();
- spirit.moveForward();
- spirit.moveForward();
- spirit.moveForward();
- spirit.printLog(); 
+//  spirit.turnRight();
+//  spirit.moveForward();
+//  spirit.turnLeft();
+//  spirit.moveForward();
+//  spirit.moveForward();
+//  spirit.moveForward();
+//  spirit.printLog(); 
+spirit.printPosition();
 
- let curiosity = new MarsRover({ x: 0, y: 1 });
+ let curiosity = new MarsRover({ x: 0, y: 0 }, "Curiosity");
 
- curiosity.turnRight();
  curiosity.moveForward();
- curiosity.turnLeft();
- curiosity.moveForward();
- curiosity.moveForward();
- curiosity.moveForward();
- curiosity.printLog(); 
+ curiosity.printPosition();
+//  curiosity.turnRight();
+//  curiosity.moveForward();
+//  curiosity.turnLeft();
+//  curiosity.moveForward();
+//  curiosity.moveForward();
+//  curiosity.moveForward();
+//  curiosity.printLog(); 
