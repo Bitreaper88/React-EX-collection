@@ -46,6 +46,10 @@ class MarsRover {
     direction: Compass = Compass.NORTH;
     posLog: Array<IPosition> = [ this.position ];
 
+    constructor (startPos: IPosition){
+        this.position = startPos;
+    }
+
     moveForward() {      
       this.position = move(this.direction, this.position);
       this.posLog.push(this.position);
@@ -71,12 +75,22 @@ class MarsRover {
     }
  }
 
- let rover = new MarsRover();
+ let spirit = new MarsRover({ x: 5, y: 0 });
 
- rover.turnRight();
- rover.moveForward();
- rover.turnLeft();
- rover.moveForward();
- rover.moveForward();
- rover.moveForward();
- rover.printLog(); 
+ spirit.turnRight();
+ spirit.moveForward();
+ spirit.turnLeft();
+ spirit.moveForward();
+ spirit.moveForward();
+ spirit.moveForward();
+ spirit.printLog(); 
+
+ let curiosity = new MarsRover({ x: 0, y: 1 });
+
+ curiosity.turnRight();
+ curiosity.moveForward();
+ curiosity.turnLeft();
+ curiosity.moveForward();
+ curiosity.moveForward();
+ curiosity.moveForward();
+ curiosity.printLog(); 
