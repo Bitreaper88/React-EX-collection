@@ -78,10 +78,9 @@ class MarsRover {
       this.direction = turnLeft(this.direction);
     }
 
-    printPosition(){
-        /**
-         * This is super ugly, There has to be a better way
-        */
+    /*printPosition_old(){
+        // This is now depricated
+        //This is super ugly, There has to be a better way
         let y = 0;
         for (y = 0; y < 10; y++) {
             let sl: string = "";
@@ -100,6 +99,34 @@ class MarsRover {
             console.log(sl);        
         }
        // console.log(`${this.name} position: ${this.position.x}, ${this.position.y}, heading: ${Compass[this.direction]}`)
+    }*/
+
+    printPosition(){
+
+        const n = 10; // grid size
+        const gridMap: string[][] = new Array(n).fill(" - ").map(() => new Array(n).fill(" - "));
+        
+        this.posLog.forEach(log =>{
+            gridMap[log.x][log.y] = " * "
+        });
+
+        roverInstances.forEach(rover => {
+            gridMap[rover.position.x ][rover.position.y] = ` ${rover.name.charAt(0)} `;
+        });
+        //gridMap[this.position.x][this.position.y] = " R ";
+
+        let x = 0;
+        let y = 0;
+        /**
+         * This renders the grid
+         */
+        for (y = 0; y < gridMap.length; y++) {
+            let sl: string = "";
+            for (x = 0; x < gridMap[y].length; x++) {
+              sl += (gridMap[x][y]);
+            }
+            console.log(sl);  
+        } 
     }
     
     printLog(){
@@ -134,6 +161,7 @@ class MarsRover {
 // //  curiosity.printPosition();
 
 //  spirit.printPosition();
+
 curiosity.moveForward();
 curiosity.moveForward();
 curiosity.moveForward();
@@ -142,7 +170,7 @@ curiosity.turnRight();
 curiosity.moveForward();
 curiosity.moveForward();
 
-
+/*
 curiosity.moveForward();
 curiosity.moveForward();
 curiosity.moveForward();
@@ -150,3 +178,5 @@ curiosity.moveForward();
 
  curiosity.printLog(); 
  curiosity.printPosition(); 
+ */
+curiosity.printPosition();
