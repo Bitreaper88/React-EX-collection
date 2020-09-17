@@ -39,6 +39,16 @@ function move(direction: Compass, pos: IPosition): IPosition {
   }
 }
 
+const gridMap: string[][] = generateMap(10, 3); // generates new map onto where the rovers cane run, n = size of map o  = numebr of obstacles, this map is shared by all rovers
+
+function generateMap(n: number, o: number) : string[][] {
+  const obstacles: IPosition[] = new Array(n);
+
+  let map = new Array(n).fill(" - ").map(() => new Array(n).fill(" - "));
+
+  return map
+}
+
 class MarsRover {
 
     name        : string;
@@ -81,11 +91,8 @@ class MarsRover {
    
     printPosition(){
 
-        const n = 10; // grid size
-        const gridMap: string[][] = new Array(n).fill(" - ").map(() => new Array(n).fill(" - "));
-        
         this.posLog.forEach(log =>{
-            gridMap[log.x][log.y] = " * "
+            gridMap[log.x][log.y] = " X "
         });
 
         roverInstances.forEach(rover => {
@@ -116,10 +123,9 @@ class MarsRover {
     }
  }
 
- console.log("Rovers " + roverInstances);
-
  let spirit = new MarsRover({ x: 3, y: 3 }, "Spirit");
  let curiosity = new MarsRover({ x: 5, y: 5 }, "Curiosity");
+
 
 //  spirit.turnRight();
 //  spirit.moveForward();
@@ -148,13 +154,3 @@ class MarsRover {
 // curiosity.moveForward();
 // curiosity.moveForward();
 
-// /*
-// curiosity.moveForward();
-// curiosity.moveForward();
-// curiosity.moveForward();
-// curiosity.moveForward();
-
-//  curiosity.printLog(); 
-//  curiosity.printPosition(); 
-//  */
-// curiosity.printPosition();
