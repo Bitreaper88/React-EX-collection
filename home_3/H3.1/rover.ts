@@ -10,7 +10,7 @@ enum Compass {
   WEST,
 }
 
-const roverInstances: Array<MarsRover> = [];
+export let roverInstances: Array<MarsRover> = [];
 
 function turnLeft(direction: Compass): Compass {
   switch(direction) {
@@ -39,17 +39,27 @@ function move(direction: Compass, pos: IPosition): IPosition {
   }
 }
 
-const gridMap: string[][] = generateMap(10, 3); // generates new map onto where the rovers cane run, n = size of map o  = numebr of obstacles, this map is shared by all rovers
+export const gridMap: string[][] = generateMap(10, 3); // generates new map onto where the rovers cane run, n = size of map o  = numebr of obstacles, this map is shared by all rovers
 
-function generateMap(n: number, o: number) : string[][] {
-  const obstacles: IPosition[] = new Array(n);
-
-  let map = new Array(n).fill(" - ").map(() => new Array(n).fill(" - "));
-
-  return map
+function getRandomPost(max: number): IPosition {
+  let pos: IPosition = { x:  Math.floor(Math.random() * Math.floor(max)), y:  Math.floor(Math.random() * Math.floor(max))};
+  return  pos ;
 }
 
-class MarsRover {
+function generateMap(n: number, o: number) : string[][] { 
+  let obstacles = new Array();
+  let map: string[][] = new Array(n).fill(" - ").map(() => new Array(n).fill(" - "));
+  while (obstacles.length < o){
+    let obstacle: IPosition = getRandomPost(n);
+    if (!obstacles.includes(obstacle)){
+      obstacles.push(obstacle);
+      map[obstacle.x][obstacle.y] = " O ";
+    } 
+  }
+  return map;
+}
+
+export class MarsRover {
 
     name        : string;
     position    : IPosition;
@@ -59,6 +69,7 @@ class MarsRover {
     constructor (startPos: IPosition, name?: string){
         name ? this.name = name : this.name = "Unknown rover";
         this.position = startPos;
+        this.posLog.push(startPos);
         roverInstances.push(this);
 
     }
@@ -70,14 +81,16 @@ class MarsRover {
         let spaceFree:   boolean     = true;
         const newPos:    IPosition   = move(direction, position);
 
-        if(newPos.x >= 10 || newPos.x < 0 ||  newPos.y >= 10 || newPos.y < 0) return console.log("Out of bounds, no movement");
+        if (newPos.x >= 10 || newPos.x < 0 ||  newPos.y >= 10 || newPos.y < 0 ) return console.log("Unable to move, out of bounds");
+        if (gridMap[newPos.x][newPos.y] === " O ") return console.log("Unable to move, there is a rock in the way");
+      
         roverInstances.forEach(rover => { if (rover.position.x === newPos.x && rover.position.y === newPos.y) spaceFree = false});
         if (spaceFree){
             console.log(`${this.name} moving toward ${Compass[this.direction]} to coordinates ${newPos.x}, ${newPos.y}}`)
             this.position = move(direction, position);
             this.posLog.push(this.position);
         }
-        else console.log(`${this.name} is unable to move. Path is blocked`)  
+        else console.log(`${this.name} Unable to move, another rover blocks the way`)  
     }
 
     turnRight(){
@@ -91,6 +104,8 @@ class MarsRover {
    
     printPosition(){
 
+        console.log(`\n${this.name} positon`)
+
         this.posLog.forEach(log =>{
             gridMap[log.x][log.y] = " X "
         });
@@ -98,7 +113,7 @@ class MarsRover {
         roverInstances.forEach(rover => {
             gridMap[rover.position.x ][rover.position.y] = ` ${rover.name.charAt(0)} `;
         });
-        //gridMap[this.position.x][this.position.y] = " R ";
+       // gridMap[this.position.x][this.position.y] = " R ";
 
         let x = 0;
         let y = 0;
@@ -122,35 +137,3 @@ class MarsRover {
         }
     }
  }
-
- let spirit = new MarsRover({ x: 3, y: 3 }, "Spirit");
- let curiosity = new MarsRover({ x: 5, y: 5 }, "Curiosity");
-
-
-//  spirit.turnRight();
-//  spirit.moveForward();
-//     spirit.printPosition();
-//  spirit.turnLeft();
-//  spirit.moveForward();
-//     spirit.printPosition();
-//  spirit.moveForward();
-//     spirit.printPosition();
-//  spirit.moveForward();
-//      spirit.printPosition();
-//  spirit.printLog(); 
-
-
-// //  curiosity.turnRight();
-// //  curiosity.moveForward();
-// //  curiosity.printPosition();
-
-//  spirit.printPosition();
-
-// curiosity.moveForward();
-// curiosity.moveForward();
-// curiosity.moveForward();
-// curiosity.moveForward();
-// curiosity.turnRight();
-// curiosity.moveForward();
-// curiosity.moveForward();
-
