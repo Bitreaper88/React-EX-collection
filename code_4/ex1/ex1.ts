@@ -12,7 +12,7 @@ function countDown() {
         }
         case 1: {
             console.log("1");
-            //break; 
+            break; 
         }
         default: {
             console.log("GO!");
@@ -20,7 +20,7 @@ function countDown() {
         }
     }
     count--;
-    if (0 < count) setTimeout(countDown, 1000);    
+    if (0 <= count) setTimeout(countDown, 1000);    
 }
 
 countDown();
