@@ -1,4 +1,4 @@
-complelet count: number = 3;
+let count: number = 3;
 
 function countDown() {
     switch (count) {
