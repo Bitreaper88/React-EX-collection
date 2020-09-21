@@ -1,4 +1,3 @@
-import { argv } from "process";
 
 class PlushToy {
    private index: number = 0;
