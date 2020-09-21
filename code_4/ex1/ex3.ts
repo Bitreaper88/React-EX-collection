@@ -12,7 +12,9 @@ Promise.all([getValue(), getValue()]).then((values: any) => {
 
 
 ( async () => {
-  console.log(`Value 1 is ${getValue().value} and value 2 is ${getValue().value}`);
+  const a: any = await getValue();
+  const b: any = await getValue();
+  console.log(`Value 1 is ${a.value} and value 2 is ${b.value}`);
 })();
 
 
