@@ -1,8 +1,9 @@
 //import readline from 'readline-sync';
 import { MarsRover } from "./rover";
+//import { restoreManual } from "./roverCommand";
 //import { roverInstances  } from "./rover";
 
-class botRover {
+export class botRover {
 
     stepDelay: number;
     moveCount: number;
@@ -12,9 +13,7 @@ class botRover {
         this.rover = rover;
         this.stepDelay = msDelay;
         this.moveCount = moveCount;
-        this.autoPilot();
-
-    }
+    } 
 
     timer(ms: number) {
         return new Promise(res => setTimeout(res, ms));
@@ -36,16 +35,17 @@ class botRover {
 
             if (step >= this.moveCount) {
                 console.log(`${this.rover.name}: Auto pilot disengaged`)
+               // restoreManual(); // This is janky AF needs some kind of await implemenation
                 break;
             }
         }
     }
 }
 
-let spirit = new MarsRover({ x: 3, y: 3 }, "Spirit");
-let curiosity = new MarsRover({ x: 5, y: 5 }, "Curiosity");
-let pathfinder = new MarsRover({ x: 2, y: 1 }, "Pathfinder");
+//let spirit = new MarsRover({ x: 3, y: 3 }, "Spirit");
+//let curiosity = new MarsRover({ x: 5, y: 5 }, "Curiosity");
+//let pathfinder = new MarsRover({ x: 2, y: 1 }, "Pathfinder");
 
-let botSpirit = new botRover(spirit, 1000, 14);
-let botpathfinder = new botRover(curiosity, 700, 20);
-let botpathfindert = new botRover(pathfinder, 2000, 10);
+//let botSpirit = new botRover(spirit, 1000, 14);
+//let botpathfinder = new botRover(curiosity, 700, 20);
+//let botpathfindert = new botRover(pathfinder, 2000, 10);

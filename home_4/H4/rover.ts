@@ -35,7 +35,6 @@ export class MarsRover {
     this.posLog.push(startPos);
     roverInstances.push(this);
     this.lastMessage = "Rover landed";
-
   }
 
   moveForward() {
