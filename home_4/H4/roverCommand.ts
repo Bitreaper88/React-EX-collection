@@ -1,6 +1,6 @@
 import readline from 'readline-sync';
 import { MarsRover  } from "./rover";
-import { gridMap, roverInstances  } from "./rover";
+import { roverInstances  } from "./rover";
 
 let run = true;
 
@@ -12,8 +12,8 @@ let currentRover: MarsRover = spirit;
 
 const commands = new Map([
     [ 'move',       { procedure:  () => {currentRover.moveForward() } } ],
-    [ 'turnR',      { procedure:  () => {currentRover.turnRight() } } ],
-    [ 'turnL',      { procedure:  () => {currentRover.turnLeft() } } ],
+    [ 'turnR',      { procedure:  () => {currentRover.turnR() } } ],
+    [ 'turnL',      { procedure:  () => {currentRover.turnL() } } ],
     [ 'pos',        { procedure:  () => {currentRover.printPosition() } } ],
     [ 'log',        { procedure:  () => {currentRover.printLog() } } ],
     [ 'change',     { procedure:  () => {changeRover() } } ],
@@ -25,8 +25,7 @@ function changeRover(){
         console.log(index+1 + ": " + rover.name);
     });
 
-    const input: string = readline.question("Select the Rover you want to control by the index number\n");
-    
+    const input: string = readline.question("Select the Rover you want to control by the index number\n"); 
     if (parseInt(input) > roverInstances.length || parseInt(input) < 1) return console.log(`Invalid index\nYou still controlling ${currentRover.name}`);
     
     currentRover = roverInstances [parseInt(input)-1];
@@ -42,38 +41,3 @@ while (run){
     if(!fn) console.log("Invalid command\nAvailable commands: \n'move' \n'turnR' \n'turnL' \n'pos' \n'log' \n'change' \n'quit'\n");
     else fn.procedure();  
 }
-// curiosity.moveForward();
-// curiosity.moveForward();
-// curiosity.moveForward();
-// curiosity.moveForward();
-// curiosity.printLog(); 
-// curiosity.printPosition(); 
-// curiosity.printPosition();
-
-
-//  spirit.turnRight();
-//  spirit.moveForward();
-//     spirit.printPosition();
-//  spirit.turnLeft();
-//  spirit.moveForward();
-//     spirit.printPosition();
-//  spirit.moveForward();
-//     spirit.printPosition();
-//  spirit.moveForward();
-//      spirit.printPosition();
-//  spirit.printLog(); 
-
-
-// //  curiosity.turnRight();
-// //  curiosity.moveForward();
-// //  curiosity.printPosition();
-
-//  spirit.printPosition();
-
-// curiosity.moveForward();
-// curiosity.moveForward();
-// curiosity.moveForward();
-// curiosity.moveForward();
-// curiosity.turnRight();
-// curiosity.moveForward();
-// curiosity.moveForward();
