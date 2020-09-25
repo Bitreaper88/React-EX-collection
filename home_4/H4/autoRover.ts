@@ -20,6 +20,7 @@ export class botRover {
     }
 
     async autoPilot() {
+        await this.timer(1000)
         console.log(`${this.rover.name}: Auto pilot engaged`);
         await this.timer(1000)
         let step: number = 0;
@@ -35,7 +36,6 @@ export class botRover {
 
             if (step >= this.moveCount) {
                 console.log(`${this.rover.name}: Auto pilot disengaged`)
-               // restoreManual(); // This is janky AF needs some kind of await implemenation
                 break;
             }
         }

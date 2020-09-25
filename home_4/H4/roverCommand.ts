@@ -42,13 +42,11 @@ function autoAll() {
         const botSpirit = new botRover(spirit, 1000, 14);
         const botpathfinder = new botRover(curiosity, 700, 20);
         const botpathfindert = new botRover(pathfinder, 2000, 10);
-      
-        await botSpirit.autoPilot();
-        await botpathfinder.autoPilot();
-        await botpathfindert.autoPilot();
+
+        await Promise.all([botSpirit.autoPilot(), botpathfinder.autoPilot(), botpathfindert.autoPilot()])
         console.log(`Manual control available`);
         mainRun();
-      })();
+    })();
 }
 
 function auto() {
@@ -56,7 +54,7 @@ function auto() {
     (async () => {
         const timestep: string = readline.question("Set auto pilot parameters\n Input time step in ms: ");
         const stepCount: string = readline.question("Amount of steps: ");
-        //console.log(`Assuming control, ${currentRover.name} is now on autopilot`);
+        console.log(`Assuming control, ${currentRover.name} is now on autopilot`);
         const bot = new botRover(currentRover, parseInt(timestep), parseInt(stepCount));
         await bot.autoPilot();
         console.log(`Manual control available`);
