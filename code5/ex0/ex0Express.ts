@@ -1,12 +1,11 @@
 import express from "express";
 
 const app = express();
+const port: number = 4321;
 
-const port = 4321;
+app.get('/counter', (request, response) => {
+   response.send("<h1> Heroooo ^_^ </h1>")
 
-
-app.get('/', (request, response) => {
-   response.send("Heroooo ^_^")
 });
 app.listen(port, () => {
    console.log(`Listening to port ${port}`);
