@@ -1,9 +1,8 @@
 import http from "http";
 
-const server = http.createServer((req: any, res: any) => {
-   res.write("Some cool response!");
-   res.end();
-});
-server.listen(5000);
+http.createServer(function (request, response) {
+   response.writeHead(200, {'Content-Type': 'text/plain'});
+   response.end('Hello World\n');
+}).listen(4321);
 
-console.log("Listening port 5000");
+console.log('Server started');
