@@ -12,3 +12,8 @@ This is just a basic git test
 
 * npm install --save express
 * npm install --save-dev @types/express
+
+* npx create-react-app your-app-name --typescript
+* code your-app-name
+* cd your-app-name
+* npm start
