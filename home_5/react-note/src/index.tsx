@@ -1,42 +1,52 @@
-import React from 'react';
+
+import React, { useState,useEffect } from "react";
 import ReactDOM from 'react-dom';
-import './index.css';
+import './note.css';
 //import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Container from "./Note"
 
+const header = <h1>Hello there</h1>
+const options = {
+  weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+  hour: 'numeric', minute: 'numeric', second: 'numeric',
+  hour12: false,
+};
 
+const Clock: React.FC = () => {
 
-const header = <h1>Hello there, General Kenobi</h1>
-const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-interface Date {
-  date: any
-}
-function Clock(props: Date) {
-  const clock = (
+  const [time, setTime] = useState(new Date().toLocaleTimeString("en-US", options));
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const date = new Date()
+      setTime(date.toLocaleDateString("en-US", options));
+    }, 1000);
+    return () => {
+      clearTimeout(timeout);
+    }
+  }, [time]);
+
+  return (
     <div>
-      {/* <h2>It is {new Date().toLocaleTimeString()}.</h2> */}
-      <h2>It is {props.date.toLocaleDateString("en-US", options)}</h2>
+      <h2>It is {time}</h2>
     </div>
-  );
-  return clock;
-}
+  )
+};
 
-//setInterval(Clock, 1000);
 
 function App() {
   return (
     <div>
       {header}
-      <Clock date={new Date()} />
-      <Container/>
+      <Clock/>
+      <Container />
     </div>
   );
 }
 
 ReactDOM.render(
   <React.StrictMode>
-     <App />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

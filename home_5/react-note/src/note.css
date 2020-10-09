@@ -1,0 +1,163 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color:white;
+  text-align: center;
+  font-family: verdana;
+}
+
+.container{
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 10px;
+  align-items: flex-start;
+  text-align: left;
+  width: 40%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.Note {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+  border-color: #A0B2DA;
+  border-width: thin;
+  background-color: #FCFAF9;
+  margin: 20px;
+  margin-top: 0;
+  border-radius: 20px;
+  /* display: grid;
+  grid-template-columns: 1fr 300px;;
+  grid-gap: 10px; */
+  overflow: hidden;
+  border: 2px solid  #A0B2DA;
+
+}
+
+.form {
+  margin: 50px;
+  margin-top: 1em;
+}
+
+.notesHeader {
+  margin: 50px;
+  margin-bottom: 0;
+  border-bottom: 5px solid  #A0B2DA;
+  color:#406CBB;
+  text-align: left;
+  padding-left: 20px;
+  padding-bottom: 5px;
+  font-weight: bolder;
+  font-family: verdana;
+}
+
+.textBox {
+
+  border-radius: 20;
+  text-align: left;
+  height: auto;
+  border-radius: 20px;
+  grid-row: 1 / span 2;
+  font-family: verdana;
+  line-height: 30px;
+  font-size: 16px;
+  margin: 20px;
+  vertical-align: text-top;
+}
+
+.info {
+  grid-row: 1;
+  background-color: #A0B2DA;
+  padding: 20px 5px 5px 5px;
+  height: 100%;
+  width: 100%;
+  display: inline-flex;
+  background-size: cover;
+}
+.block {
+  width: auto;
+  padding-left: 150px;
+  display: inline-block;
+}
+
+
+.date {
+  margin: 5px;
+  padding: 5px;
+  text-align: right;
+  margin-left: auto;
+  font-size: 20px;
+  width: fit-content;
+}
+
+.important {
+  color: white;
+  text-align: right;
+  margin: 5px;
+  padding: 5px;
+  margin-left: auto;
+  font-weight: bolder;
+  font-family: verdana;
+  font-size: 28px;
+  background-size: cover;
+  width: fit-content;
+}
+.textField {
+    width: 100%;
+    height: 300px;
+    font-family: verdana;
+    padding: 10px;
+    font-size: 16x;
+    border-radius: 10px;
+    border: none;
+    background-color: aliceblue;
+    vertical-align:top;
+}
+
+.checkbox {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  padding: 5px;
+}
+
+
+.btn {
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 10px;
+  max-height: 45px;
+  outline: none;
+}
+
+.add {
+  color: white;
+  background-color: #4285F5;
+}
+.delete {
+  color: white;
+  background-color: #f54e42;
+  margin-left: 20px;
+}
+
+h1 {
+  color:#406CBB;
+  text-align: center;
+  font-weight: bolder;
+}
+
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
