@@ -13,6 +13,7 @@ const options = {
     hour: 'numeric', minute: 'numeric',
     hour12: false,
 };
+let newNote: INote;
 
 let notesList: Array<INote> = [
     {
@@ -37,23 +38,6 @@ let notesList: Array<INote> = [
     }
 ]
 
-const Shite: React.FC<INote> = props => {
-
-    const { content, date, important } = props;
-    return (
-        <div>
-            Some text:
-            <p>
-                {content}
-            </p>
-            The date:
-            <p>
-                {noteDate(date)}
-            </p>
-        </div>
-    )
-}
-
 function noteDate(date: string) {
     let noteDate = new Date(date);
     return (
@@ -72,16 +56,6 @@ function importantText(date: boolean) {
         )
     }
 }
-
-
-let newNote: INote =
-{
-    id: 5,
-    content: 'Shitty bang bang',
-    date: '2019-05-30T17:30:31.098Z',
-    important: true
-};
-
 
 const Container: React.FC = () => {
     let [notes, setNotes] = useState(() => notesList);
@@ -115,9 +89,7 @@ const Container: React.FC = () => {
             date: new Date().toJSON(),
             important: important
         };
-
         notesList.push(newNote);
-
         setNotes((notes: INote[]) => {
             notes = notesList
             return notes
@@ -127,8 +99,6 @@ const Container: React.FC = () => {
         setContent("");
     }
 
-
-
     return (
         <div>
             <div className="container">
@@ -137,13 +107,13 @@ const Container: React.FC = () => {
                 </div>
                 <div className="form">
 
-                    <textarea className="textField" name="content" value={content} onChange={e => setContent(e.target.value)}>
+                    <textarea className="textField" name="content" placeholder="Write your text here..." value={content} onChange={e => setContent(e.target.value)}>
                     </textarea >
 
                     <p>
                         <label className="checkbox" htmlFor="important">Important</label>
                         <input className="checkbox" name="important" checked={important} type="checkbox"
-                            onClick={() => { important ? setImportant(false) : setImportant(true) }} />
+                            onChange={() => { important ? setImportant(false) : setImportant(true) }} />
                     </p>
                     <p>
                         <button className={"add btn"} onClick={AddNote}>
@@ -160,10 +130,9 @@ const Container: React.FC = () => {
                 </div>
                 <ul>
                     {notes.map((note: INote) =>
-
+                    <li key={note.id}>
                         <div className="Note">
                             <div className="info">
-                                {console.log("Current note ID: "  + note.id)}
                                 <button className={"delete btn"}  onClick={() => {DeleteNote(note.id)}}>
                                     Delete
                                  </button>
@@ -180,7 +149,9 @@ const Container: React.FC = () => {
                             </div>
 
                         </div>
+                        </li>
                     )}
+                   
                 </ul>
             </div>
         </div>
