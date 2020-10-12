@@ -1,0 +1,33 @@
+
+.App-header {
+  background-color: #282c34;
+  font-size: calc(10px + 2vmin);
+  display: block;
+}
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background-color: white;
+}
+
+ a, a:hover {
+  color: white;
+  background-color: cornflowerblue;
+}
+
+ul {
+  list-style-type: none;
+  margin-left: 10px;
+}
+li {
+  display: inline;
+  margin-left: 10px;
+  background-color: transparent;
+}
+
+.activeLink {
+  color: white;
+  background-color:green;
+  font-weight: bolder;
+} 
+
