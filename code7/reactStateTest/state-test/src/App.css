@@ -2,32 +2,49 @@
 .App-header {
   background-color: #282c34;
   font-size: calc(10px + 2vmin);
-  display: block;
+  display: flex;
+  overflow: hidden;
 }
 body {
   margin: 0;
   font-family: sans-serif;
   background-color: white;
 }
-
- a, a:hover {
-  color: white;
-  background-color: cornflowerblue;
+a:hover {
+   color: white;
+   background-color: cadetblue;
 }
 
-ul {
+.navBtn {
   list-style-type: none;
-  margin-left: 10px;
+  color: white;
+  text-decoration: none;
+  padding: 20px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
 }
 li {
   display: inline;
-  margin-left: 10px;
+
   background-color: transparent;
 }
 
+ul {
+  padding: 0;
+  margin: 0;
+}
+
 .activeLink {
+  background-color: green;
   color: white;
-  background-color:green;
-  font-weight: bolder;
 } 
 
+.headerText {
+  color: white;
+  font-style: italic;
+  font-size: 50px;
+  padding: 5px;
+}

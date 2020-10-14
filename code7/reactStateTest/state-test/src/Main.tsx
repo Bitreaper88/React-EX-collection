@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import Modal from './Modal';
+import ModalHandler from './Modal';
 
 
 const Main: React.FC = props => {
@@ -14,6 +14,9 @@ const Main: React.FC = props => {
     <div>
       <h1>Main</h1>
       Hee hee
+      <p>
+      <ModalHandler backgroundColor={"#99ffcc"}/>
+      </p>
     </div>
   );
 }

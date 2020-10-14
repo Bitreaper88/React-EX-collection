@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import ModalHandler from './Modal';
 // import {Header} from './index';
 
 const About: React.FC = props => {
@@ -13,6 +14,9 @@ const About: React.FC = props => {
       <h1>About</h1>
 
       Haa haa
+      <p>
+      <ModalHandler backgroundColor={"#CC0000"}/>
+      </p>
     </div>
   );
 }

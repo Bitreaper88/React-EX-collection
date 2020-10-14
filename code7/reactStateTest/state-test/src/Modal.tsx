@@ -2,6 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Modal from "react-modal";
 
+interface IModalParams {
+    backgroundColor: string
+}
+
 const customStyles = {
   content : {
     top                   : '50%',
@@ -14,11 +18,10 @@ const customStyles = {
   }
 };
 
-function ModalHandler (param: any){
-  let [color, setColor] = React.useState("#bbb");
-  setColor = param; // does not work WTF
+function ModalHandler (props: IModalParams){
+  let [color, setColor] = React.useState(props.backgroundColor);
 
-  console.log(param);
+  console.log(props.backgroundColor);
   const [modalIsOpen,setIsOpen] = React.useState(false);
   function openModal() {
     setIsOpen(true);
