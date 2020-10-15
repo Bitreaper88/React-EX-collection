@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect, useCallback  } from 'react';
 import ReactDOM from 'react-dom';
 import './App.css';
 import * as serviceWorker from './serviceWorker';
@@ -8,6 +8,49 @@ import Main from './Main';
 import About from './About';
 import Bingo from './Bingo';
 import ModalHandler from './Modal';
+import { stringify } from 'querystring';
+
+
+// interface responseObject {
+//    userId: number
+//    id: number
+//    title: string
+//    body: string
+// }
+
+const Post: React.FC = () => {
+
+  //const firstPost = getPOST(1);
+  const [post, setPost] = useState<any>()
+
+  //const [postttt, setSetPostttt] = useState(firstPost)
+  let count = 1;
+  const fetchAPI = useCallback(async () => {
+    let response: any = await fetch('https://jsonplaceholder.typicode.com/posts/'+count)
+    response = await response.json()
+    console.log(response.body);
+    console.log(response.id);
+    setPost(response);
+    count++;
+  }, [])
+
+  useEffect(() => {
+    fetchAPI()
+  }, [fetchAPI])
+
+  return (
+    <div>
+        {post?.title}
+      <p>
+        {post?.id}
+      </p>
+      <p>
+         {post?.body}
+      </p>
+      <button onClick={() => fetchAPI()}>Click me</button>
+    </div>
+  )
+};
 
 const Routing: React.FC = () => {
   return (
@@ -35,10 +78,10 @@ const Routing: React.FC = () => {
   )
 }
 
-
 ReactDOM.render(
 
   <React.StrictMode>
+    <Post/>
     <Routing/>  
   </React.StrictMode>,
   document.getElementById('root')
