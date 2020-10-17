@@ -8,8 +8,7 @@
   width: fit-content;
 }
 .grid-item {
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0.8);
+  background-color: transparent;
   width: 5em;
   height: 5em;
   margin: 20px;
@@ -18,14 +17,65 @@
   justify-content: center;
   align-items: center;
   user-select: none;
+  perspective: 1000px;
+  position: relative;
+  transform-style: preserve-3d;
 }
 
 .showing {
-  background-color: chartreuse;
+  background: rgb(180, 224, 241);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 5px;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   user-select: none;
+  animation: show 2s;
+  animation-fill-mode: forwards;
+}
+
+.noShowing {
+
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  background: rgb(53, 85, 161);
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  animation-fill-mode: forwards;
+  animation: hide 2s;
+
+}
+
+@keyframes show {
+  from {
+    transform: rotateX(180deg);
+    color: transparent;
+  }
+  0% {background:  rgb(53, 85, 161); }
+  20% {background: rgb(53, 85, 161); }
+  50% {background: rgb(180, 224, 241);color: transparent}
+  to {
+    transform: rotateX(0);
+  }
+}
+
+
+@keyframes hide {
+  from {
+    transform: rotateX(-180deg);
+    color: black;
+  }
+  0% {background:  rgb(180, 224, 241); }
+  20% {background: rgb(180, 224, 241); }
+  50% {background: rgb(53, 85, 161);color: transparent}
+
+  to {
+    transform: rotateX(0);
+  }
 }
