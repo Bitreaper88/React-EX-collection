@@ -2,6 +2,10 @@ import React, { useState, useEffect, useImperativeHandle } from 'react';
 import './App.css';
 import { cardDeck } from './App';
 
+/*
+*** Known bugs 
+    * Sometimes when cards are clicked rapidly one of the cards gets stuck in the fliped possiton. Cause yet unknown
+*/
 export interface ICard{
   id: number;
   card: string;
@@ -83,15 +87,16 @@ const AllCards: React.FC = () => {
     if(selectedCard1 && selectedCard2){
       let id1 = selectedCard1.id;
       let id2 = selectedCard2.id;
-      setTimeout(()=>{
-        selectedCard1 = null;
-        selectedCard2 = null;
-        cardDeck[id1].visible = false;
-        cardDeck[id2].visible = false;
+      setTimeout(()=>{  
         ReDraw()
-       
-      
        }, 2000)
+       /*
+       Moved thees outside the Timeout, hopefully resolves the stuck card bug
+       */
+       selectedCard1 = null;
+       selectedCard2 = null;
+       cardDeck[id1].visible = false;
+       cardDeck[id2].visible = false;
     }
     console.log("paircount " + paircount);
     if (paircount === 8){
