@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './App.css';
 import ModalHandler from './Modal';
+import {LangContext} from './Localization';
 
 
 const Main: React.FC = props => {
-  const [listsState, setListState] = useState<number[]>([]);
 
-  const addOneToList = () => {
-    const newState = [...listsState, listsState.length + 1]
-  }
-
+  const lang = useContext(LangContext);
+ 
   return (
     <div>
       <h1>Main</h1>
-      Hee hee
+
+      {lang.paragraf} Hee hee
       <p>
       <ModalHandler backgroundColor={"#99ffcc"}/>
       </p>

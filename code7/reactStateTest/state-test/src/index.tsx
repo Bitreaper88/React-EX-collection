@@ -1,88 +1,71 @@
-import React, { useState,useEffect, useCallback  } from 'react';
+import React, { useState, useEffect, useCallback, useContext, createContext } from 'react';
 import ReactDOM from 'react-dom';
 import './App.css';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router, Link, NavLink, Route } from 'react-router-dom';
-
 import Main from './Main';
 import About from './About';
 import Bingo from './Bingo';
-import ModalHandler from './Modal';
-import { stringify } from 'querystring';
+import Post from './Post';
+import {LangProvider, LangContext} from './Localization';
 
 
-// interface responseObject {
-//    userId: number
-//    id: number
-//    title: string
-//    body: string
-// }
+const MainButtons: React.FC<any> = ({ changeLang }) => {
+  
+  const lang = useContext(LangContext);
 
-const Post: React.FC = () => {
+  return (<>
+    <ul className="App-header">
 
-  //const firstPost = getPOST(1);
-  const [post, setPost] = useState<any>()
-
-  //const [postttt, setSetPostttt] = useState(firstPost)
-  let count = 1;
-  const fetchAPI = useCallback(async () => {
-    let response: any = await fetch('https://jsonplaceholder.typicode.com/posts/'+count)
-    response = await response.json()
-    console.log(response.body);
-    console.log(response.id);
-    setPost(response);
-    count++;
-  }, [])
-
-  useEffect(() => {
-    fetchAPI()
-  }, [fetchAPI])
-
-  return (
-    <div>
-        {post?.title}
-      <p>
-        {post?.id}
-      </p>
-      <p>
-         {post?.body}
-      </p>
-      <button onClick={() => fetchAPI()}>Click me</button>
-    </div>
-  )
-};
+  <li className="headerText">{lang.header}</li>
+        <li>
+          <NavLink to="/" exact className={"navBtn"} activeClassName={"activeLink"}>Main</NavLink>
+        </li>
+        <li>
+          <NavLink to="/about" exact className={"navBtn"} activeClassName={"activeLink"}>About</NavLink>
+        </li>
+        <li>
+          <NavLink to="/Bingo" exact className={"navBtn"} activeClassName={"activeLink"}>Bingo</NavLink>
+        </li>
+        <li>
+          <NavLink to="/Post" exact className={"navBtn"} activeClassName={"activeLink"}>Post</NavLink>
+        </li>
+        <div className="topnav-right lang">
+          <select className={"navBtn lang"} onChange={e => changeLang(e.target.value)} name="lang" id="lang">
+            <option value="en">English</option>
+            <option value="fi">Finnsih</option>
+          </select>
+        </div>
+      </ul>
+  </>)
+}
 
 const Routing: React.FC = () => {
+   const [currentLang, updateLang] = useState("en");
+   const changeLang = (code: string) => {
+    updateLang(code);
+   };
+
   return (
     
-    <Router>
-      <div>      
-          <ul className="App-header">
-          <li className="headerText"> Basic navigation </li>
-            <li>
-              <NavLink to="/" exact className={"navBtn"} activeClassName={"activeLink"}>Main</NavLink>
-            </li>
-            <li>
-              <NavLink to="/about" exact  className={"navBtn"} activeClassName={"activeLink"}>About</NavLink>
-            </li>
-            <li>
-              <NavLink to="/Bingo" exact  className={"navBtn"} activeClassName={"activeLink"}>Bingo</NavLink>
-            </li>
-          </ul>
-        <Route exact path="/" component={Main} />
-        <Route path="/Main" component={Main} />
-        <Route path="/About" component={About} />
-        <Route path="/Bingo" component={Bingo} />
-      </div>
-    </Router>
+    <LangProvider selected={currentLang}>
+        <Router>
+            <MainButtons changeLang={changeLang} />
+            <Route exact path="/" component={Main} />
+            <Route path="/Main" component={Main} />
+            <Route path="/About" component={About} />
+            <Route path="/Bingo" component={Bingo} />
+            <Route path="/Post" component={Post} />
+        </Router>
+     </LangProvider>
+   
   )
 }
 
-ReactDOM.render(
 
+ReactDOM.render(
   <React.StrictMode>
-    <Post/>
-    <Routing/>  
+    <Routing />
   </React.StrictMode>,
   document.getElementById('root')
 );
